@@ -41,8 +41,8 @@ for (const file of commandFiles) {
 
 client.on("message", async (message) => {
   let pf = '!';
-  let args = message.content.slice(pf.length).trim().split(' ');
-  let cmds = args.shift().toLowerCase();
+  let arg = message.content.slice(pf.length).trim().split(' ');
+  let cmds = arg.shift().toLowerCase();
   
   if (message.author.bot) return;
   if (!message.guild) return;
