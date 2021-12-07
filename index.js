@@ -40,6 +40,10 @@ for (const file of commandFiles) {
 }
 
 client.on("message", async (message) => {
+  let pf = '!';
+  let args = message.content.slice(pf.length).trim().split(' ');
+  let cmds = args.shift().toLowerCase();
+  
   if (message.author.bot) return;
   if (!message.guild) return;
 
@@ -54,6 +58,28 @@ client.on("message", async (message) => {
   const command =
     client.commands.get(commandName) ||
     client.commands.find((cmd) => cmd.aliases && cmd.aliases.includes(commandName));
+  
+  if(cmds === 'test'){
+    message.channel.send('hello test');
+  }
+    
+  if(cmds=== 'ping'){
+    message.channel.send('Pong! ' + `${Date.now() - message.createdTimestamp}` + ' ms');
+  }
+  if (cmds === 'avatar') {
+    let user = message.mentions.users.first() || message.author;        
+    let embed = new Discord.RichEmbed()
+    .setColor('RANDOM')
+    .setTitle(`${user.username}'s avatar`)
+    .setImage(`${user.displayAvatarURL}`)
+    message.channel.send({embed});
+  }
+    
+  if(cmds === 'choose'){
+    let pick = message.content.slice(prefix.length + 7).trim().split(',');
+    let ans = pick[Math.floor(Math.random()* pick.length)]
+    message.channel.send(ans);
+  }
 
   if (!command) return;
 
